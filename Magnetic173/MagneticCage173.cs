@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Exiled.API.Features;
+using Exiled.API.Interfaces;
 using MEC;
 using ProjectMER.Features.Objects;
 
 namespace Magnetic173
 {
-    public class MagneticCage173 : Plugin<Config>
+    public class MagneticCage173 : Plugin<Config, Translation>
     {
         public override string Name => "MagneticCage173";
         public override string Author => "Feniks Studio - Tymek";

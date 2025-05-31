@@ -12,38 +12,38 @@ namespace Magnetic173.Commands
     {
         public string Command => MagneticCage173.Instance.Config.CageCommand;
         public string[] Aliases => null;
-        public string Description => "Initiating the magnetic cage creation procedure on SCP-173.";
+        public string Description => MagneticCage173.Instance.Translation.Description;
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             if (!(sender is PlayerCommandSender playerSender))
             {
-                response = "This command can only be used by a player.";
+                response = MagneticCage173.Instance.Translation.ConsoleUse;
                 return false;
             }
 
             Player player = Player.Get(playerSender.ReferenceHub);
-            if (player == null) 
+            if (player == null)
             {
-                response = "Player could not be identified.";
+                response = MagneticCage173.Instance.Translation.CantDetectPlayer;
                 return false;
             }
 
             if (!MagneticCage173.Instance.Config.IsEnabled)
             {
-                response = "The magnetic cage function is currently disabled.";
+                response = MagneticCage173.Instance.Translation.FeatureDisabled;
                 return false;
             }
 
             if (!MagneticCage173.Instance.Config.AllowedRoles.Contains(player.Role.Type))
             {
-                response = "Your role does not permit the use of this command.";
+                response = MagneticCage173.Instance.Translation.NotAllowedRole;
                 return false;
             }
 
             if (MagneticCage173.Instance.ActiveCountdowns.ContainsKey(player) || Magnetic173.MagneticCage173.Instance.IsPlayerCurrentlyCaging(player)) 
             {
-                response = "You are already in the process of creating a cage or have an active cage.";
+                response = MagneticCage173.Instance.Translation.AlreadyCaging;
                 return false;
             }
 
@@ -55,23 +55,23 @@ namespace Magnetic173.Commands
                 {
                     if (Magnetic173.MagneticCage173.Instance.ActiveCages.ContainsKey(target))
                     {
-                        response = "This SCP-173 is already in a cage.";
+                        response = MagneticCage173.Instance.Translation.Scp173AlreadCaged;
                         return false;
                     }
 
                     Magnetic173.MagneticCage173.Instance.InitiateCagingProcess(player, target); 
-                    response = "Initiating magnetic cage creation procedure...";
+                    response = MagneticCage173.Instance.Translation.Initiating;
                     return true;
                 }
                 else
                 {
-                    response = $"You must look directly at SCP-173 from a close distance.";
+                    response = MagneticCage173.Instance.Translation.TooFar;
                     return false;
                 }
             }
             else 
             {
-                response = $"You must look directly at SCP-173 from a close distance.";
+                response = MagneticCage173.Instance.Translation.TooFar;
                 return false;
             }
         }
